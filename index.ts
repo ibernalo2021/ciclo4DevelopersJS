@@ -1,27 +1,44 @@
 import conectarBD from './db/db';
 import { UserModel } from './models/user';
-import { Enum_Rol } from './models/enums';
+import { Enum_Rol, Enum_TipoObjetivo } from './models/enums';
 import { ProjectModel } from './models/project';
 import { isPropertyDeclaration } from 'typescript';
 import { ObjectId } from 'mongoose';
+import { ObjetiveModel } from './models/objective';
 
 
 const main = async () => {
     await conectarBD();
-    //CREAR PROYECTO
+    //CREAR PROYECTO CON OBJETIVOS DENTRO 
+
+    // const objectivo = await ObjetiveModel.create({
+    //    descripcion: 'Este es el objetivo especifico',
+    //    tipo: Enum_TipoObjetivo.especifico,
+    // });
+
+    // // PARA REFERENCIAR OBJETIVOS DESDE PROYECTOS
     // ProjectModel.create({
-    //     nombre: 'proyecto 2',
-    //     presupuesto: 240,
+    //     nombre: 'proyecto 3',
+    //     presupuesto: 340,
     //     fechaInicio: Date.now(),
     //     fechaFin: new Date('2022/11/10'),
     //     lider: '61bab8ac7812672ce3545c8f',
+    //     objetivos:[
+    //         '61bbadcff13ad28997e83ab7',
+    //         '61bbadfeb2c2fc706b1a428d',
+    //     ]
     // }).then((p)=>{
     //     console.log('Proyecto creado ', p);
     // }).catch((e)=>{
     //     console.log('Error creando proyecto ', e);
     // });
-    const proyecto: any = await ProjectModel.find({nombre: 'proyecto 2'}).populate('lider');
-    console.log('El proyecto es: ' ,  proyecto);
+  
+    const proyecto = await ProjectModel.find({nombre: 'proyecto 3'})
+    .populate('lider')
+    .populate('objetivos');
+     console.log('El proyecto 3 es: ' , JSON.stringify(proyecto));
+  
+    // // Borrar esto ya nos sirve (// // )
     // // const proyecto: any = await ProjectModel.find({nombre: 'proyecto 1'});
     // // console.log('El proyecto es: ' ,  proyecto);
 
