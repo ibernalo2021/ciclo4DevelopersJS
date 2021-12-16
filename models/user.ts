@@ -1,17 +1,17 @@
 import { Schema, model } from 'mongoose';
-import {Enum_Rol} from './enums';
+import { Enum_Rol } from './enums';
 
 
 
-interface User{
+interface User {
     correo: string;
     identificacion: string;
-    nombre:string;
+    nombre: string;
     apellido: string;
     rol: Enum_Rol;
 }
 
-const userSchema = new Schema <User>({
+const userSchema = new Schema<User>({
     correo: {
         type: String,
         required: true,
@@ -30,11 +30,11 @@ const userSchema = new Schema <User>({
         required: true,
     },
     rol: {
-        type:String,
-        required:true,
+        type: String,
+        required: true,
         enum: ['Estudiante', 'Líder', 'Administrador'],
     },
 });
 
 const UserModel = model('user', userSchema);
-export {UserModel};
+export { UserModel };
