@@ -1,22 +1,48 @@
 import conectarBD from './db/db';
 import { UserModel } from './models/user';
 import { Enum_Rol } from './models/enums';
+import { ProjectModel } from './models/project';
+import { isPropertyDeclaration } from 'typescript';
+import { ObjectId } from 'mongoose';
+
 
 const main = async () => {
     await conectarBD();
-    // CREAR UN USUARIO
-    await UserModel.create({
-        correo: "carmeng@fdgd.com.co",
-        identificacion: '144156416',
-        nombre: 'carmensa',
-        apellido: 'Granado 2',
-        rol: Enum_Rol.lider,
-    })
-        .then((u) => {
-            console.log('usuario creado ', u);
-        }).catch((e) => {
-            console.log('error creado el usuario ', e);
-        });
+    //CREAR PROYECTO
+    // ProjectModel.create({
+    //     nombre: 'proyecto 1',
+    //     presupuesto: 150,
+    //     fechaInicio: Date.now(),
+    //     fechaFin: new Date('2022/11/10'),
+    //     lider: '61bab8ac7812672ce3545c8f',
+    // }).then((p)=>{
+    //     console.log('Proyecto creado ', p);
+    // }).catch((e)=>{
+    //     console.log('Error creando proyecto ', e);
+    // });
+    const proyecto: any = await ProjectModel.find({nombre: 'proyecto 1'});
+    console.log('El proyecto es: ' ,  proyecto);
+
+    const lider = await UserModel.find({_id: proyecto[1].lider});
+    console.log(' el lider del proyecto es: ', lider);
+    
+};
+
+main();
+
+// CREAR UN USUARIO
+    // await UserModel.create({
+    //     correo: "carmeng@unip.com.co",
+    //     identificacion: '1444156416',
+    //     nombre: 'carmensa',
+    //     apellido: 'Granado 2',
+    //     rol: Enum_Rol.lider,
+    // })
+    //     .then((u) => {
+    //         console.log('usuario creado ', u);
+    //     }).catch((e) => {
+    //         console.log('error creado el usuario ', e);
+    //     });
 
     //OBTENER LOS USUARIOS
     // await UserModel.find() //busqueda especifica
@@ -67,6 +93,3 @@ const main = async () => {
     // }).catch((e) => {
     //     console.error('Error al eliminar usuario ', e);
     // });
-};
-
-main();

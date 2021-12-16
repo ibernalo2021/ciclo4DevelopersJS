@@ -19,14 +19,16 @@ const userSchema = new Schema<User>({
         unique: true,
         validate: {
             validator: (email) => {
-                if (email.includes('@') && email.includes('.')) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email); //validar a través de expresion regular
             },
-            message:'El formato del correo electronico está malo.',
+                // if (email.includes('@') && email.includes('.')) {
+                //     return true;
+                // }
+                // else {
+                //     return false;
+                // }
+            // },
+            message:'Validar formato de correo, hemos encontrado falla.', //se muestra solo cuando la funcion validator return false
 
         },
     },
