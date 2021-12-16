@@ -10,8 +10,8 @@ const main = async () => {
     await conectarBD();
     //CREAR PROYECTO
     // ProjectModel.create({
-    //     nombre: 'proyecto 1',
-    //     presupuesto: 150,
+    //     nombre: 'proyecto 2',
+    //     presupuesto: 240,
     //     fechaInicio: Date.now(),
     //     fechaFin: new Date('2022/11/10'),
     //     lider: '61bab8ac7812672ce3545c8f',
@@ -20,11 +20,13 @@ const main = async () => {
     // }).catch((e)=>{
     //     console.log('Error creando proyecto ', e);
     // });
-    const proyecto: any = await ProjectModel.find({nombre: 'proyecto 1'});
+    const proyecto: any = await ProjectModel.find({nombre: 'proyecto 2'}).populate('lider');
     console.log('El proyecto es: ' ,  proyecto);
+    // // const proyecto: any = await ProjectModel.find({nombre: 'proyecto 1'});
+    // // console.log('El proyecto es: ' ,  proyecto);
 
-    const lider = await UserModel.find({_id: proyecto[1].lider});
-    console.log(' el lider del proyecto es: ', lider);
+    // // const lider = await UserModel.find({_id: proyecto[2].lider});
+    // // console.log(' el lider del proyecto es: ', lider);
     
 };
 
