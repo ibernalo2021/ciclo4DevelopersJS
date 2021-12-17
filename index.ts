@@ -1,7 +1,8 @@
 import conectarBD from './db/db';
 import { UserModel } from './models/user';
-import { Enum_Rol, Enum_TipoObjetivo } from './models/enums';
-import { ProjectModel } from './models/project';
+import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from './models/enums';
+import { ProjectModel3} from './models/project3';
+import { ProjectModel} from './models/project2';
 import { isPropertyDeclaration } from 'typescript';
 import { ObjectId } from 'mongoose';
 import { ObjetiveModel } from './models/objective';
@@ -33,7 +34,7 @@ const crearProyectoConObjetivos = async () =>{
         proyecto: proyectoCreado._id,
     });
     console.log('El proyecto creado con sus objetivos es: ', proyectoCreado);
-}
+};
 
 const consultaProyectoConObjetivos= async () =>{
 
@@ -52,11 +53,12 @@ const consultaProyectoConObjetivos= async () =>{
 //METODOLOGÍA ONE TO MANY #2
 const crearProyectoConObjetivos2 = async () => {
     const usuarioInicial = await UserModel.create({
-        correo: "carmeng@unip.com.co",
-        identificacion: '1444156416',
         nombre: 'carmensa',
         apellido: 'Granado 2',
+        correo: "carmeng@unip.com.co",
+        identificacion: '1444156416',
         rol: Enum_Rol.lider,
+        estado: Enum_EstadoUsuario.autorizado,
     }); 
 
  const objetivoGeneral = await ObjetiveModel.create({
@@ -91,16 +93,45 @@ const proyectoCreado = await ProjectModel.create({
 
 };
 
+const consultaProyectoConObjetivos2= async () => {
+    const proyecto = await ProjectModel.find({id: '61bbf7cd65dc462e6583a777'}).populate('objetivos');
+    console.log('proyecto encontrado', JSON.stringify(proyecto)); 
+}
+
+
+//METODOLOGÍA ONE TO MANY #3
 
 
 const main = async () => {
+    
     await conectarBD();
 
-    const proyecto = await ProjectModel.find({id: '61bbf7cd65dc462e6583a777'}).populate('objetivos');
-
-    console.log('proyecto encontrado', JSON.stringify(proyecto)); 
     
+    const usuarioInicial = await UserModel.create({
+            nombre: 'Marcelo',
+            apellido: 'Rivas',
+            correo: "marce@unip.com.co",
+            identificacion: '333444156416',
+            rol: Enum_Rol.lider,
+            estado: Enum_EstadoUsuario.autorizado,
+        });
+
+    const proyectoCreado = awaitl3.create({
+        nombre: 'Proyecto mintic 2022',
+        fechaInicio: new Date('2021/11/01'),
+        fechaFin: new Date ('2022/12/01'),
+        presupuesto: 12000000,
+        lider: usuarioInicial._id,
+        objetivos:[
+            {descripcion: 'Este es el objetivo general', tipo: Enum_TipoObjetivo.general},
+            {descripcion: 'Este es el objetivo especifico 1', tipo: Enum_TipoObjetivo.especifico},
+            {descripcion: 'Este es el objetivo especifico 2', tipo: Enum_TipoObjetivo.especifico},
+        ],
+    
+    });
+
 };
+
 
 main();
 
