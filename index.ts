@@ -6,6 +6,7 @@ import { isPropertyDeclaration } from 'typescript';
 import { ObjectId } from 'mongoose';
 import { ObjetiveModel } from './models/objective';
 
+//METODOLOGÍA ONE TO MANY #1
 const crearProyectoConObjetivos = async () =>{
     const proyectoCreado = await ProjectModel.create({
         nombre: 'Proyecto mintic 2022',
@@ -33,21 +34,28 @@ const crearProyectoConObjetivos = async () =>{
     });
     console.log('El proyecto creado con sus objetivos es: ', proyectoCreado);
 }
+
+const consultaProyectoConObjetivos= async () =>{
     
+ //Consultar proyecto con objetivos por debajo
+ const proyecto = await ProjectModel.findOne({ _id: '61bbc6e2a71d3757cdb1b84f'});
+ console.log('El proyecto que encontre fue:' , proyecto);
+ 
+ //
+ const objetivosProyecto = await ObjetiveModel.find({project:'61bbc6e2a71d3757cdb1b84f'});
+ console.log('Los objetivos del proyecto son: ' , objetivosProyecto);
+
+ const proyectoConObjetivos = {proyecto:proyecto, objetivos:objetivosProyecto};
+ console.log('El proyecto con sus objetivos es: ' , proyectoConObjetivos);
+};
+    
+// 
+
 
 
 const main = async () => {
     await conectarBD();
-     //Consultar proyecto con objetivos por debajo
-    const proyecto = await ProjectModel.findOne({ _id: '61bbc6e2a71d3757cdb1b84f'});
-    console.log('El proyecto que encontre fue:' , proyecto);
     
-    //
-    const objetivosProyecto = await ObjetiveModel.find({project:'61bbc6e2a71d3757cdb1b84f'});
-    console.log('Los objetivos del proyecto son: ' , objetivosProyecto);
-
-    const proyectoConObjetivos = {proyecto:proyecto, objetivos:objetivosProyecto};
-    console.log('El proyecto con sus objetivos es: ' , proyectoConObjetivos);
     
 };
 
