@@ -100,35 +100,36 @@ const consultaProyectoConObjetivos2= async () => {
 
 
 //METODOLOGÍA ONE TO MANY #3
+const crearProyectoConObjetivos3 = async () =>{
 
+const usuarioInicial = await UserModel.create({
+    nombre: 'Marcelo',
+    apellido: 'Rivas',
+    correo: "marce@unip.com.co",
+    identificacion: '333444156416',
+    rol: Enum_Rol.lider,
+    estado: Enum_EstadoUsuario.autorizado,
+});
 
+const proyectoCreado = await ProjectModel3.create({
+    nombre: 'Proyecto mintic 2022',
+    fechaInicio: new Date('2021/11/01'),
+    fechaFin: new Date ('2022/12/01'),
+    presupuesto: 12000000,
+    lider: usuarioInicial._id,
+    objetivos:[
+        {descripcion: 'Este es el objetivo general', tipo: Enum_TipoObjetivo.general},
+        {descripcion: 'Este es el objetivo especifico 1', tipo: Enum_TipoObjetivo.especifico},
+        {descripcion: 'Este es el objetivo especifico 2', tipo: Enum_TipoObjetivo.especifico},
+    ],
+});
+}
 const main = async () => {
     
     await conectarBD();
 
-    
-    const usuarioInicial = await UserModel.create({
-            nombre: 'Marcelo',
-            apellido: 'Rivas',
-            correo: "marce@unip.com.co",
-            identificacion: '333444156416',
-            rol: Enum_Rol.lider,
-            estado: Enum_EstadoUsuario.autorizado,
-        });
-
-    const proyectoCreado = awaitl3.create({
-        nombre: 'Proyecto mintic 2022',
-        fechaInicio: new Date('2021/11/01'),
-        fechaFin: new Date ('2022/12/01'),
-        presupuesto: 12000000,
-        lider: usuarioInicial._id,
-        objetivos:[
-            {descripcion: 'Este es el objetivo general', tipo: Enum_TipoObjetivo.general},
-            {descripcion: 'Este es el objetivo especifico 1', tipo: Enum_TipoObjetivo.especifico},
-            {descripcion: 'Este es el objetivo especifico 2', tipo: Enum_TipoObjetivo.especifico},
-        ],
-    
-    });
+    const proyectoCreado = await ProjectModel3.find({id:'61bc239fdb1382733886ad29'});
+    console.log('proyecto encontrado es: ', JSON.stringify(proyectoCreado));
 
 };
 
