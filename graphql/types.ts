@@ -1,11 +1,32 @@
+// Los types son las definiciones, las declaración de cada una de las instrucciones
 // aqui hacemos una copia de nuestros esquemas 
 //con esto le decimos a graphQl cuales son nuestros tipos para que el pueda hacer la documentacion
-import{gql} from 'apollo-server-express';
+import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
-type Usuario{
+
+enum Enum_EstadoUsuario{
+    PENDIENTE
+    AUTORIZADO
+    NO_AUTORIZADO
+}
+
+enum Enum_Rol{
+    ESTUDIANTE
+    LIDER
+    ADMINISTRADOR
+}
+
+type Usuario{ #el ! es para campos required
+# GraphQl exige el ID en mayuscula que a su vez significa que  llave primaria
+    _id: ID!
     nombre: String!
-    #el ! es para campos required
+    apellido: String!
+    identificacion: String!
+    correo: String!
+    estado: Enum_EstadoUsuario!
+    rol: Enum_Rol!
+    
  }
 
 #Definimos los tipos de los Querys de las mutaciones  
@@ -13,6 +34,18 @@ type Usuario{
     #  el Usuarios es el mismo nombre del resolver y decimos que ese query devuelve un arreglo de usuarios del tipo arriba definido
      Usuarios:[Usuario]
  }
+
+ type Mutation{
+    #  la mutacion crearUsuario no devuelve un arreglo de usuarios por eso solo ponemos Usuario
+     crearUsuario(
+        nombre: String!
+        apellido: String!
+        identificacion: String!
+        correo: String!
+        estado: Enum_EstadoUsuario!
+        rol: Enum_Rol!
+     ):Usuario
+ }
 `;
 
-export {typeDefs};
+export { typeDefs };
