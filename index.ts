@@ -99,7 +99,7 @@ const consultaProyectoConObjetivos2= async () => {
 }
 
 
-//METODOLOGÍA ONE TO MANY #3
+//METODOLOGÍA 'ONE TO MANY' #3
 const crearProyectoConObjetivos3 = async () =>{
 
 const usuarioInicial = await UserModel.create({

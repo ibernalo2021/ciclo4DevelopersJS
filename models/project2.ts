@@ -57,6 +57,6 @@ const projectSchema = new Schema<Proyecto>({
     ],
 });
 
-const ProjectModel = model('Proyecto', projectSchema)
+const ProjectModel = model('proyecto', projectSchema)
 
 export {ProjectModel};
