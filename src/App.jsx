@@ -15,6 +15,7 @@ import AuthLayout from 'layouts/AuthLayout';
 import Register from 'pages/auth/register';
 
 // import PrivateRoute from 'components/PrivateRoute';
+import IndexProyectos from './pages/proyectos/index';
 
 // const httpLink = createHttpLink({
 //   uri: 'https://servidor-gql-mintic.herokuapp.com/graphql',
@@ -36,11 +37,13 @@ function App() {
             <Route path='/' element={<PrivateLayout />}>
               <Route path='' element={<Index />} />
               <Route path='/usuarios' element={<IndexUsuarios />} />
-              <Route path='/proyectos' element={<IndexUsuarios />} />
+              {/* <Route path='/proyectos' element={<IndexUsuarios />} /> */}
               <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} />
               <Route path='page2' element={<Page2 />} />
-              <Route path='category1' element={<IndexCategory1 />} />
+              <Route path='proyectos' element={<IndexCategory1 />} />
               <Route path='category1/page1' element={<Category1 />} />
+              <Route path='proyectoss' element={<IndexProyectos />} />
+              
             </Route>
             <Route path='/auth' element={<AuthLayout />}>
               <Route path='register' element={<Register />} />
